@@ -13,7 +13,7 @@ scikit-image==0.22.0
 scikit-learn==1.5.0
 stackstac==0.5.0
 torchdata==0.7.1
-torchgeo==0.5.2
+torchgeo==0.6.1
 torchvision==0.16.1
 transformers==4.36.0
 typeshed-client==2.4.0
