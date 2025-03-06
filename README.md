@@ -30,14 +30,12 @@ The main components are:
 
 ![](assets/GeoFM_demo_architecture_detailed.png)
 
-This repository comprises a simplified version of this architecture, with certain application logic being integrated into the frontend logic for now.
-
 
 ## Getting Started
 
 To get started, perform the following steps:
 
-1. Step 1: Run Geospatial ML Pipeline for your area of interest:
+1. Run Geospatial ML Pipeline for your area of interest:
     * Navigate to `sagemaker-pipelines` folder.
     * Follow steps laid out in the respective notebooks in the `prerequisites` folder:
         * Build and push the `clay_gpu_docker_image` to ECR 
@@ -54,7 +52,7 @@ To get started, perform the following steps:
                     └── config_<aoi_name>.json
     ```
 
-2. Step 2: Deploy the UI stack:
+2. Deploy the UI stack:
     * Navigate to the [UI](./ui/geofm-demo-stack/) folder
     * Update the config file by pasting the contents of the previously retrieved `config.json`
     * follow the instructions from the `ui/geofm-demo-stack/README.md` file to deploy the UI CDK Stack
