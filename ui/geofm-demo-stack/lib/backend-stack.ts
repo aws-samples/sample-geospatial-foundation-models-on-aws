@@ -3,7 +3,6 @@ import { CfnOutput, Duration, NestedStack, NestedStackProps, RemovalPolicy } fro
 import { Construct } from 'constructs';
 import * as path from 'path';
 
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
 import * as apigw from 'aws-cdk-lib/aws-apigateway';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as lambdaNodeJS from 'aws-cdk-lib/aws-lambda-nodejs'
@@ -122,7 +121,6 @@ export class BackendStack extends NestedStack {
             runtime: lambda.Runtime.PYTHON_3_9,
             memorySize: 1024,
             code: lambda.Code.fromDockerBuild(path.join(__dirname, '..', 'lambdas', 'tiltiler')),
-            // code: lambda.Code.fromDockerBuild('../lambdas/titiler'),
             handler: "handler.handler",
             environment: {
                 "CACHE_ENDPOINT": `redis://${redisCluster.attrRedisEndpointAddress}:${redisCluster.attrRedisEndpointPort}`,

@@ -15,13 +15,6 @@ export class GeoFMDemoStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: GeoFMDemoStackProps) {
     super(scope, id, props);
 
-    // const emailParameter = new CfnParameter(this, 'UserEmail', {
-    //     type: 'String',
-    //     description: 'The email that will receive the login credentials',
-    //     minLength: 3,
-    //     allowedPattern: `^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$`
-    // });
-
     const secureHeaderName = 'WafProtection';
     const secureHeaderValue = this.stackId;
 
@@ -44,9 +37,6 @@ export class GeoFMDemoStack extends cdk.Stack {
         customHeaderName: secureHeaderName,
         customHeaderValue: secureHeaderValue,
         envName: props?.envName || 'dev',
-
-        // userPool: auth.userPool,
-        // authorizerFunction: frontend.authorizerFunction,
     });
 
     const frontend = new FrontendStack(this, 'FrontendStack', {

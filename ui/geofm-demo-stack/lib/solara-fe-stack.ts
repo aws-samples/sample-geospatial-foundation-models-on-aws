@@ -61,7 +61,7 @@ export class SolaraFEStack extends cdk.NestedStack {
     });
 
 
-        // create a flow log to be associated with VPC and that sends logs in Cloudwatch
+    // create a flow log to be associated with VPC and that sends logs in Cloudwatch
     // this is a best practice but not strictly required
     this.vpc.addFlowLog('FlowLogCloudWatchGeoFMDemo', {
       destination: ec2.FlowLogDestination.toCloudWatchLogs(),
@@ -159,15 +159,6 @@ export class SolaraFEStack extends cdk.NestedStack {
       interval: cdk.Duration.seconds(6),
     });
 
-    // Is created in FrontEnd stack 
-    // const solaraOrigin = new origins.HttpOrigin(fargateService.loadBalancer.loadBalancerDnsName, {
-    //   customHeaders: {
-    //     [props.customHeaderName]: props.customHeaderValue,
-    //   },
-    //   httpPort: 8000,
-    //   protocolPolicy: cloudfront.OriginProtocolPolicy.HTTP_ONLY,
-    // });
-
     this.solaraOriginLBDnsName = fargateService.loadBalancer.loadBalancerDnsName;
 
     // TODO add Listener Rule
@@ -221,26 +212,6 @@ export class SolaraFEStack extends cdk.NestedStack {
     );
 
     this.solaraSGs = fargateService.loadBalancer.connections.securityGroups.map(sg => sg.securityGroupId);
-    // this.solaraSGs = fargateService.service.connections.securityGroups.map(sg => sg.securityGroupId)
-
-    // const distribution = props.cloudFrontDistribution as cloudfront.Distribution;
-    // distribution.addBehavior('/solara/*', solaraOrigin, {
-    //   viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-    //   allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
-    //   originRequestPolicy: new cloudfront.OriginRequestPolicy(this, 'SolaraOriginRequestPolicy', {
-    //     headerBehavior: cloudfront.OriginRequestHeaderBehavior.allowList('Host', 'Origin', 'Sec-WebSocket-Key', 'Sec-WebSocket-Version', 'Sec-WebSocket-Protocol'),
-    //     queryStringBehavior: cloudfront.OriginRequestQueryStringBehavior.all(),
-    //   }),
-    //   cachePolicy: new cloudfront.CachePolicy(this, 'SolaraCachePolicy', {
-    //     defaultTtl: cdk.Duration.seconds(0),
-    //     minTtl: cdk.Duration.seconds(0),
-    //     maxTtl: cdk.Duration.seconds(0),
-    //   }),
-    //   edgeLambdas: [{
-    //     eventType: cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
-    //     functionVersion: props.authorizerFunction.currentVersion
-    //   }],
-    // });
 
     // Output the ALB DNS name
     new cdk.CfnOutput(this, 'LoadBalancerDNS', {

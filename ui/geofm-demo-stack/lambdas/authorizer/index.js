@@ -17,7 +17,7 @@ exports.handler = async (request) => {
 
         const ssmClient = new SSMClient({ region: 'us-east-1' });
 
-        // Create the command to get the '/GFMDemo/AuthorizerConfig' parameter
+        // Create the command to get the '/GeoFMDemo/AuthorizerConfig' parameter
         const command = new GetParameterCommand({
             Name: `/GeoFMDemo/${envName}/AuthorizerConfig`
         });
@@ -44,28 +44,3 @@ exports.handler = async (request) => {
     return await authenticator.handle(request);
 };
 
-
-// const { Authenticator } = require('cognito-at-edge');
-
-// const AWS = require('aws-sdk');
-
-// var configItems = [];
-
-// exports.handler = async (request) => {
-//     if (configItems.length == 0) {
-//         console.log('Getting authorizer config...');
-//         const ssmResponse = await new AWS.SSM({ region: 'us-east-1'}).getParameter({ Name: '/GFMDemo/AuthorizerConfig' }).promise();
-//         const config = ssmResponse.Parameter.Value;
-//         configItems = config.split(';');
-//         console.log('Authorizer config: ' + configItems.join(' '));
-//     }
-
-//     const authenticator = new Authenticator({
-//         region: configItems[0],
-//         userPoolId: configItems[1],
-//         userPoolAppId: configItems[2],
-//         userPoolDomain: configItems[3]
-//     });
-
-//     return await authenticator.handle(request);
-// }

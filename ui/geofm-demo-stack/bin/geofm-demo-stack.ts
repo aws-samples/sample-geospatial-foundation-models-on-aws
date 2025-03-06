@@ -2,7 +2,6 @@
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { GeoFMDemoStack } from '../lib/geofm-demo-stack';
-//import { Tags } from 'aws-cdk-lib';
 
 const app = new cdk.App();
 
@@ -15,4 +14,3 @@ const geoFMDemoStack = new GeoFMDemoStack(app, `GeoFMDemoStack${envName}`, {
   envName: envName
 });
 
-//Tags.of(geoFMDemoStack).add('project', 'geofm-demo');
