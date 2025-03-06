@@ -1,0 +1,85 @@
+{
+  "current_demo_id": "brazil-mato-grosso",
+  "demos": [
+      {
+          "config": {
+              "aoi_geojson_s3_key": "processing/brazil-mato-grosso/input/aoi/aoi.geojson",
+              "aoi_name": "brazil-mato-grosso",
+              "aws_region": "us-east-1",
+              "background_video_file": "<TO BE FILLED>",
+              "baseline_start_date": "2020-01-01",
+              "bucket_name": "aws-geofm-data-bucket-558777956362-us-east-1-dev",
+              "change_threshold_linear_reg": [
+                  1e-07,
+                  1.75e-07
+              ],
+              "chip_grid_change_intensity_geojson": "",
+              "chip_grid_geojson_s3_key": "output/brazil-mato-grosso/consolidated-output/20LPP/chip_grid_full_s2_tile.geojson",
+              "fe_bucket_name": "aws-geofm-fe-bucket-558777956362-us-east-1-dev",
+              "imagery_metadata": {
+                  "2020": {
+                      "date": "20200624",
+                      "month": 6,
+                      "processing_level": "L2A",
+                      "provider": "sentinel2",
+                      "satellite": "S2B"
+                  },
+                  "2021": {
+                      "date": "20210704",
+                      "month": 7,
+                      "processing_level": "L2A",
+                      "provider": "sentinel2",
+                      "satellite": "S2A"
+                  },
+                  "2022": {
+                      "date": "20220803",
+                      "month": 8,
+                      "processing_level": "L2A",
+                      "provider": "sentinel2",
+                      "satellite": "S2B"
+                  },
+                  "2023": {
+                      "date": "20230706",
+                      "month": 7,
+                      "processing_level": "L2A",
+                      "provider": "sentinel2",
+                      "satellite": "S2B"
+                  },
+                  "2024": {
+                      "date": "20240710",
+                      "month": 7,
+                      "processing_level": "L2A",
+                      "provider": "sentinel2",
+                      "satellite": "S2B"
+                  }
+              },
+              "metadata": {
+                  "base_maps": [
+                      "OpenTopoMap",
+                      "OpenStreetMap",
+                      "OpenStreetMap.HOT",
+                      "ESA WorldCover 2021"
+                  ],
+                  "spectral_indices": [
+                      "TCI",
+                      "NDVI",
+                      "EVI",
+                      "NBR"
+                  ]
+              },
+              "metadata_file_name": "consolidated_output.parquet",
+              "metadata_path": "output/brazil-mato-grosso/consolidated-output/20LPP/",
+              "monitoring_start_date": "2021-01-01",
+              "png_thumbnail_key": "s3_location_png_thumbnail",
+              "s2_tile_id": "20LPP",
+              "sentinel2_cog_source_url": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/20/L/PP/2024/10/S2B_20LPP_20241028_0_L2A/TCI.tif",
+              "similarity_search_date": "2024-10-28",
+              "use_remote_s2_cogs": "True",
+              "vectordb_collection_host": "<PLACEHOLDER>",
+              "vectordb_collection_name": "vector_db",
+              "vectordb_type": "lancedb"
+          },
+          "demo_id": "brazil-mato-grosso"
+      }
+  ]
+}

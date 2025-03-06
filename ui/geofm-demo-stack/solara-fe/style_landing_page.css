@@ -1,0 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+
+.jupyter-widgets.leaflet-widgets {
+    height: 100%;
+    border-radius: 20px;
+}
+
+.solara-autorouter-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+}
+
+.image-container {
+    text-align: center;
+  }
+
+.v-toolbar__title {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+}
+
+.v-navigation-drawer {
+    width: 150px !important; /* Adjust this value as needed */
+    max-width: 150px !important;
+}
+
+.ui-container {
+    height: 95vh;
+    justify-content: center;
+    padding: 0px 0px 0px 0px;
+}
+
+/* .chat-interface {
+    height: 100%;
+    width: 38vw;
+    justify-content: center;
+    position: relative;
+}
+
+.chat-interface:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: linear-gradient(to top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 100%);
+    width: 100%;
+    height: 15%;
+} */
+
+.map-container {
+    width: 50vw;
+    height: 100%;
+    justify-content: center;
+}
+
+.v-application--wrap > div:nth-child(2) > div:nth-child(2){
+    display: none !important;
+}
+
+.rounded-image {
+    border-radius: 10px;
+    overflow: hidden;
+}

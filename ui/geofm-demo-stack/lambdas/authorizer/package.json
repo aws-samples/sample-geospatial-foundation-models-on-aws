@@ -1,0 +1,10 @@
+{
+    "name": "authorizer",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {},
+    "dependencies": {
+      "cognito-at-edge": "^1.2.2"
+    }
+  }
+  

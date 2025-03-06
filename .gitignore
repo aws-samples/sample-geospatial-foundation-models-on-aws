@@ -1,0 +1,8 @@
+*.DS_Store
+**/.DS_Store
+.vscode/settings.json
+sagemaker_pipelines/.DS_Store
+ui/geofm-demo-stack/cdk.context.json
+sagemaker_pipelines/prerequisites/.DS_Store
+sagemaker_pipelines/prerequisites/clay_gpu_docker_image/model_artifact/clay-v1-base.ckpt
+sagemaker_pipelines/prerequisites/.DS_Store

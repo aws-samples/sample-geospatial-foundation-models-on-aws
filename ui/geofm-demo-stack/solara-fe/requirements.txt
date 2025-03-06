@@ -1,0 +1,26 @@
+fastapi
+uvicorn
+solara
+ipywidgets==7.8.5
+ipyvuetify==1.10.0
+starlette
+solara-server[starlette]
+geopandas
+leafmap==0.35.11
+fsspec
+pyarrow
+xarray
+pydantic< 2.0
+setuptools<71
+boto3
+opensearch-py 
+requests-aws4auth 
+joblib
+reacton==1.8.3
+statsmodels
+scikit-learn
+plotly==5.24.1
+pytest
+lancedb
+aiobotocore
+s3fs

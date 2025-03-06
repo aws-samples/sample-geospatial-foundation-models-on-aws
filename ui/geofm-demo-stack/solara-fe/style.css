@@ -1,0 +1,60 @@
+.jupyter-widgets.leaflet-widgets {
+    height: 100%;
+    border-radius: 20px;
+}
+
+.solara-markdown {
+    max-width: 100%;
+    padding-top: 5px;
+}
+
+.solara-autorouter-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.image-container {
+    text-align: center;
+  }
+
+.v-toolbar__title {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+}
+
+.solara-autorouter-content { /* remove extra padding on Home Page */
+    margin-left: -12px;
+    margin-top: -12px;
+}
+
+.v-navigation-drawer {
+    width: 150px !important; /* Adjust this value as needed */
+    max-width: 150px !important;
+}
+
+.ui-container {
+    height: 95vh;
+    justify-content: center;
+    padding: 0px 0px 0px 0px;
+}
+/* 45px 50px 75px 50px; */
+.map-container {
+    width: 50vw;
+    height: 100%;
+    justify-content: center;
+}
+
+.v-application--wrap > div:nth-child(2) > div:nth-child(2){
+    display: none !important;
+}
+
+.rounded-image {
+    border-radius: 10px;
+    overflow: hidden;
+}
