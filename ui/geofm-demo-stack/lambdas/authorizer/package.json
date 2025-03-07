@@ -4,7 +4,7 @@
     "main": "index.js",
     "scripts": {},
     "dependencies": {
-      "cognito-at-edge": "^1.2.2"
+      "cognito-at-edge": "^1.5.3"
     }
   }
   
