@@ -10,8 +10,15 @@ You need to have CDK and AWS Cli installed on your device to deploy this stack.
 
 ### Deployment
 
-1. Bootstrap two regions: us-east-1 is manadatory + target region us-west-2
+1. Bootstrap AWS region: If running on `us-east-1` run the following command and move to step 2.
 
+   ```
+   npm install
+   export AWS_REGION=us-east-1
+   cdk bootstrap
+   ```
+   
+   (OPTIONAL) If running on a different region (i.e. `us-west-2`) bootstrap both regions.  
    ```
    npm install
    export AWS_REGION=us-east-1
