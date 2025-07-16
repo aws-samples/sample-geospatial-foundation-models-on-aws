@@ -1,0 +1,12 @@
+name: claymodel
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - pytorch
+  - torchvision
+  - conda-lock=2.5.6
+platforms:
+  - linux-64
