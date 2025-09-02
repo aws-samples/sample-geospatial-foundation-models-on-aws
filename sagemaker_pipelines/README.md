@@ -18,7 +18,7 @@ The following Docker images must be built and registered in [Amazon Elastic Cont
 
 1. Build and register required Docker images.
    Run the following two notebooks to build the custom ECR images:
-   1. [Build Custom Glay GPU Image](./prerequisites/clay_gpu_docker_image/build-custom-clay-gpu-image.ipynb)
+   1. [Build Custom Clay GPU Image](./prerequisites/clay_gpu_docker_image/build-custom-clay-gpu-image.ipynb)
    2. [Build Custom Geo Processing Image](./prerequisites/geospatial_processing_image/build-custom-geo-image.ipynb)
 
    (*Note*: When building from Amazon SageMaker Notebook instances (i.e. `ml.m5.xlarge`), use minimum of 75GB disk space on the instance)
