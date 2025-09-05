@@ -49,7 +49,7 @@ def LandingPage():
 
     #FOR DEPLOYMENT
     demo_config = load_config()
-    cloudfront_url = demo_config["config"]["cloudfront_url"]
+    cloudfront_url = os.environ.get('CLOUDFRONT_URL')
     background_video_url = f"{cloudfront_url}/{demo_config['config']['background_video_file']}"
 
     with solara.Column(style={"height": "100vh", "width": "100vw", "position": "relative", "overflow": "hidden"}):

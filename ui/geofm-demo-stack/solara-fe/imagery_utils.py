@@ -164,7 +164,7 @@ def get_layer_url(config: 'Config', year: int,
         if not config.use_remote_s2_cogs:
             geotiff_url = f"{geotiff_url}&{viz_params}"
         
-        return f"{config.tiles_backend_url}/{{z}}/{{x}}/{{y}}.png?url={geotiff_url}"
+        return f"{os.environ.get('TILES_BACKEND_URL')}/{{z}}/{{x}}/{{y}}.png?url={geotiff_url}"
     
     except Exception as e:
         logger.error(f"Error generating layer URL: {str(e)}")

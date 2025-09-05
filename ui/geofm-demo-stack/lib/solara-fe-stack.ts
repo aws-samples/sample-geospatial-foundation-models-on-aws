@@ -131,7 +131,9 @@ export class SolaraFEStack extends cdk.NestedStack {
       environment: {
         'SOLARA_APP': 'app:app',
         'SOLARA_ASSETS_PREFIX': '/solara/',
-        "GEOTIFF_BUCKET_URL": props.geoTiffBucket.urlForObject()
+        "GEOTIFF_BUCKET_URL": props.geoTiffBucket.urlForObject(),
+        "TILES_BACKEND_URL": "/tile/cog/tiles",
+        "CLOUDFRONT_URL": "/",
       }
     });
 
