@@ -20,6 +20,7 @@ export interface SolaraFEStackProps extends cdk.NestedStackProps {
   customHeaderName: string;
   customHeaderValue: string;
   envName: string;
+  geoTiffBucket: s3.IBucket;
   // userPool: cognito.IUserPool;
   // authorizerFunction: cloudfront.experimental.EdgeFunction;
 }
@@ -129,7 +130,8 @@ export class SolaraFEStack extends cdk.NestedStack {
       logging: ecs.LogDrivers.awsLogs({ streamPrefix: 'SolaraBackend' }),
       environment: {
         'SOLARA_APP': 'app:app',
-        'SOLARA_ASSETS_PREFIX': '/solara/'
+        'SOLARA_ASSETS_PREFIX': '/solara/',
+        "GEOTIFF_BUCKET_URL": props.geoTiffBucket.urlForObject()
       }
     });
 

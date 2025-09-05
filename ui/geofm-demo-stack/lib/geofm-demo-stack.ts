@@ -33,10 +33,10 @@ export class GeoFMDemoStack extends cdk.Stack {
     });
 
     const solaraBackend = new SolaraFEStack(this, 'SolaraFEStack', {
-        // cloudFrontDistribution: frontend.cloudFrontDistribution,
         customHeaderName: secureHeaderName,
         customHeaderValue: secureHeaderValue,
         envName: props?.envName || 'dev',
+        geoTiffBucket: backend.geoTiffBucket
     });
 
     const frontend = new FrontendStack(this, 'FrontendStack', {
@@ -45,8 +45,9 @@ export class GeoFMDemoStack extends cdk.Stack {
         customHeaderName: secureHeaderName,
         customHeaderValue: secureHeaderValue,
         tilesApi: backend.tilesApi,
-        geotiffBucketVpcEndpointId: backend.s3VpcPointId,
-        envName: props?.envName || 'dev'
+        envName: props?.envName || 'dev',
+        geoTiffBucket: backend.geoTiffBucket,
+        geoTiffOriginAccessIdentity: backend.geoTiffOriginAccessIdentity
     });
 
     this.applyConfiguration(frontend, auth);
@@ -96,32 +97,5 @@ export class GeoFMDemoStack extends cdk.Stack {
         installLatestAwsSdk: false
     });
     customResourceUserPoolClientConfig.node.addDependency(frontend.cloudFrontDistribution, auth.userPoolClient);
-
-    const config = {
-        tiles_backend_url: frontend.frontendUrl + '/tile/cog/tiles',
-        cloudfront_url: frontend.frontendUrl,
-        geotiff_bucket_url: frontend.geotiffUrl
-    };
-
-    const putConfigCall: cr.AwsSdkCall = {
-        service: 'S3',
-        action: 'putObject',
-        parameters: {
-            Bucket: frontend.staticContentBucket.bucketName,
-            Key: 'config.json',
-            Body: JSON.stringify(config),
-        },
-        physicalResourceId: cr.PhysicalResourceId.of(frontend.staticContentBucket.bucketArn),
-    };
-
-    const customResourceFrontendConfig = new cr.AwsCustomResource(this, 'PutFrontendConfig', {
-        onCreate: putConfigCall,
-        onUpdate: putConfigCall,
-        policy: cr.AwsCustomResourcePolicy.fromSdkCalls({
-            resources: [frontend.staticContentBucket.bucketArn + '/*']
-        }),
-        installLatestAwsSdk: false
-    });
-    customResourceFrontendConfig.node.addDependency(frontend.geoTiffBucket, frontend.cloudFrontDistribution);
   }
 }

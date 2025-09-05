@@ -3,6 +3,7 @@ from enum import Enum
 from typing import Optional, Union, Any
 from dataclasses import dataclass
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -151,7 +152,7 @@ def get_layer_url(config: 'Config', year: int,
             )
         else:
             geotiff_url = (
-                f"{config.geotiff_bucket_url}/geotiff/{config.aoi_name}/"
+                f"{os.environ.get('GEOTIFF_BUCKET_URL')}/geotiff/{config.aoi_name}/"
                 f"{img_meta.provider.folder_structure}/{year}/{img_meta.month}/"
                 f"{img_meta.get_image_path()}_aoi_max_size_{band_name}.tif"
             )

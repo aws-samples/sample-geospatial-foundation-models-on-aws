@@ -6,32 +6,6 @@ import io
 s3_res = boto3.resource('s3')
 
 
-def read_s3_config(bucket_name: str, key: str):
-    """
-    Reads the frontend JSON config created by CDK.
-
-    Args:
-        bucket_name: Bucket containing the FE config JSON file (i.e. geofm-demo-xxx-us-west-2-dev)
-        key: config file name (i.e config.json)
-
-    Returns:
-        Dict containing the FE configuration
-        {
-            "tiles_backend_url": "https://xxx.cloudfront.net/tile/cog/tiles",
-            "cloudfront_url":"https://xxx.cloudfront.net/api/",
-            "geotiff_bucket_url":"https://s3.us-west-2.amazonaws.com/geofm-demo-xxx-us-west-2-dev-geotiff"
-        }
-    """
-    s3_client = boto3.client('s3')
-
-    try:
-        response = s3_client.get_object(Bucket=bucket_name, Key=key)
-        json_content = json.loads(response['Body'].read().decode('utf-8'))
-        return json_content
-    except Exception as e:
-        print(f"Error reading FE JSON from S3: {str(e)}")
-        return None
-
 # Custom decoder for "True"/"False" strings
 def bool_decoder(dct):
     for k, v in dct.items():
@@ -60,13 +34,6 @@ def load_config(config_path: str = 'demo_config.json', demo_id: int = None) -> D
         demo_config = [obj for obj in config["demos"] if obj["demo_id"] == demo_id]
 
     if len(demo_config) > 0:
-        # read FE config created by CDK and add missing values
-        fe_config = read_s3_config(demo_config[0]["config"]["fe_bucket_name"], "config.json")
-        
-        # add new keys to the config
-        if fe_config != None:
-            for k in fe_config:
-                demo_config[0]["config"][k] = fe_config[k]
         return demo_config[0]
     else:
         raise Exception("Demo not found")

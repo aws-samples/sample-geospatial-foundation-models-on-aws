@@ -14,6 +14,9 @@ import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as elasticache from 'aws-cdk-lib/aws-elasticache';
 import { CfnWebACL, CfnWebACLAssociation } from 'aws-cdk-lib/aws-wafv2';
 
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as cf from 'aws-cdk-lib/aws-cloudfront';
+
 
 export interface BackendStackProps extends NestedStackProps {
     readonly userPool: cognito.IUserPool;
@@ -25,8 +28,9 @@ export interface BackendStackProps extends NestedStackProps {
 
 export class BackendStack extends NestedStack {
     public readonly tilesApi: apigw.RestApi;
-    public readonly s3VpcPointId: string;
     public readonly vpc: ec2.Vpc;
+    public readonly geoTiffBucket: s3.IBucket;
+    public readonly geoTiffOriginAccessIdentity: cf.OriginAccessIdentity;
 
     constructor(scope: Construct, id: string, props: BackendStackProps) {
         super(scope, id, props);
@@ -74,7 +78,6 @@ export class BackendStack extends NestedStack {
             actions: ['s3:GetObject'],
             resources: ['*']            
         }));
-        this.s3VpcPointId = s3AccessPoint.vpcEndpointId;
         
         const tilTilerSG = new ec2.SecurityGroup(this, 'lambdaTilTilerSecurityGroup', {
             vpc,
@@ -93,6 +96,37 @@ export class BackendStack extends NestedStack {
             subnetIds,
             description: 'subnet group for geofm-demo redis'
         });
+
+
+        this.geoTiffBucket = new s3.Bucket(this, 'GeoTiffBucket', {
+            bucketName: `aws-geofm-geotiff-bucket-${this.account}-${this.region}-${props.envName}`,
+            blockPublicAccess: {
+                blockPublicAcls: true,
+                restrictPublicBuckets: true,
+                blockPublicPolicy: true,
+                ignorePublicAcls: true
+            },
+            removalPolicy: RemovalPolicy.DESTROY,
+            autoDeleteObjects: true,
+            accessControl: s3.BucketAccessControl.PRIVATE,
+            enforceSSL: true,
+        });
+
+        this.geoTiffBucket.addToResourcePolicy(new iam.PolicyStatement({
+            actions: ['s3:GetObject'],
+            principals: [new iam.AccountPrincipal(this.account)],
+            resources: [this.geoTiffBucket.arnForObjects('*')],
+            conditions: {
+                StringEquals: {
+                    "aws:sourceVpce": `${s3AccessPoint.vpcEndpointId}`
+                }
+            }
+        }));
+
+        // Allow direct access to GeoTiff images from the bucket using OAI
+        this.geoTiffOriginAccessIdentity = new cf.OriginAccessIdentity(this, 'GeoTiffOriginAccessIdentity');
+        this.geoTiffBucket.grantRead(this.geoTiffOriginAccessIdentity);
+
 
         const redisCluster = new elasticache.CfnCacheCluster(
             this,

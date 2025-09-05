@@ -19,19 +19,17 @@ export interface FrontendStackStackProps extends NestedStackProps {
     readonly customHeaderName: string;
     readonly customHeaderValue: string;
     readonly tilesApi: apigw.RestApi;
-    readonly geotiffBucketVpcEndpointId: string;
     readonly solaraSGs: string[];
     readonly solaraOriginLBDnsName: string;
     readonly envName: string;
+    readonly geoTiffBucket: s3.IBucket;
+    readonly geoTiffOriginAccessIdentity: cf.OriginAccessIdentity;
 }
 
 export class FrontendStack extends NestedStack {
 
     public readonly staticContentBucket: s3.Bucket;
-    public readonly geoTiffBucket: s3.Bucket;
     public readonly frontendUrl: string;
-    public readonly geotiffUrl: string;
-    public readonly geotiffBucketName: string;
     public readonly cloudFrontDistribution: cf.Distribution;
     public readonly authorizerFunction: cf.experimental.EdgeFunction;
 
@@ -54,38 +52,6 @@ export class FrontendStack extends NestedStack {
 
         const staticContentOriginAccessIdentity = new cf.OriginAccessIdentity(this, 'StaticContentOriginAccessIdentity');
         this.staticContentBucket.grantRead(staticContentOriginAccessIdentity);
-
-        this.geoTiffBucket = new s3.Bucket(this, 'GeoTiffBucket', {
-            bucketName: `aws-geofm-geotiff-bucket-${this.account}-${this.region}-${props.envName}`,
-            blockPublicAccess: {
-                blockPublicAcls: true,
-                restrictPublicBuckets: true,
-                blockPublicPolicy: true,
-                ignorePublicAcls: true
-            },
-            removalPolicy: RemovalPolicy.DESTROY,
-            autoDeleteObjects: true,
-            accessControl: s3.BucketAccessControl.PRIVATE, 
-            enforceSSL: true,
-        });
-
-        this.geotiffUrl = this.geoTiffBucket.urlForObject();
-        this.geotiffBucketName = this.geoTiffBucket.bucketName;
-
-        this.geoTiffBucket.addToResourcePolicy(new iam.PolicyStatement({
-            actions: ['s3:GetObject'],
-            principals: [new iam.AccountPrincipal(this.account)],
-            resources: [ this.geoTiffBucket.arnForObjects('*') ],
-            conditions: {
-                StringEquals: {
-                    "aws:sourceVpce": `${props.geotiffBucketVpcEndpointId}`
-                }
-            }
-        }));
-
-        // Allow direct access to GeoTiff images from the bucket using OAI
-        const geoTiffOriginAccessIdentity = new cf.OriginAccessIdentity(this, 'GeoTiffOriginAccessIdentity');
-        this.geoTiffBucket.grantRead(geoTiffOriginAccessIdentity);
 
         this.authorizerFunction = new cloudfront.experimental.EdgeFunction(this, 'CloudFrontAuthorizer', {
             runtime: lambda.Runtime.NODEJS_18_X,
@@ -188,8 +154,8 @@ export class FrontendStack extends NestedStack {
             });
 
         // The Geotiff images are located in geotiff/*.tif
-        this.cloudFrontDistribution.addBehavior('geotiff/*', new cfo.S3Origin(this.geoTiffBucket, {
-            originAccessIdentity: geoTiffOriginAccessIdentity
+        this.cloudFrontDistribution.addBehavior('geotiff/*', new cfo.S3Origin(props.geoTiffBucket, {
+            originAccessIdentity: props.geoTiffOriginAccessIdentity
             }),
             {
                 edgeLambdas: edgeLambda,
