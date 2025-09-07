@@ -77,7 +77,7 @@ class MapLayerManager:
             max_zoom=24,
             name='Sentinel-2',
             bounds=self.aoi_bounds,
-            url=f"{self.config.tiles_backend_url}/{{z}}/{{x}}/{{y}}.png?url={self.config.sentinel2_cog_source_url}"
+            url=f"{os.environ.get('TILES_BACKEND_URL')}/{{z}}/{{x}}/{{y}}.png?url={self.config.sentinel2_cog_source_url}"
         )
         
         chip_grid = self._create_chip_grid()
