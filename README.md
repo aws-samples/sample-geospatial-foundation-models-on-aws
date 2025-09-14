@@ -58,6 +58,9 @@ To get started, perform the following steps:
     * follow the instructions from the `ui/geofm-demo-stack/README.md` file to deploy the UI CDK Stack
 
 
+## Cleanup
+The solution uses [Authorization@Edge](https://aws.amazon.com/blogs/networking-and-content-delivery/authorizationedge-how-to-use-lambdaedge-and-json-web-tokens-to-enhance-web-application-security/) for serverless authorization of viewers using [Amazon CloudFront](https://aws.amazon.com/cloudfront/), [Lambda@Edge](https://aws.amazon.com/lambda/edge/) and [Amazon Cognito](https://aws.amazon.com/cognito/). Since [Lambda@Edge replicas are usually deleted within a few hours](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-delete-replicas.html), you’ll need to wait that long after deleting the solution before you can manually delete the associated Lambda function from AWS Lambda.
+
 ## Authors and acknowledgment
 * Karsten Schroer
 * Bishesh Adhikari
