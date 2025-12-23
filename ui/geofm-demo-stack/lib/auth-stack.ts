@@ -38,7 +38,7 @@ export class AuthStack extends NestedStack {
         this.userPool = new cognito.UserPool(this, "UserPool", {
             userPoolName: `GeoFMDemoUsers-${props.envName}`,
             removalPolicy: RemovalPolicy.DESTROY,
-            mfa: cognito.Mfa.REQUIRED,
+            mfa: cognito.Mfa.OFF,
             
             signInAliases: { email: true, username: true },
             autoVerify: { email: true },
