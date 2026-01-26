@@ -17,7 +17,8 @@ The following Docker images must be built and registered in [Amazon Elastic Cont
 ## Getting Started
 
 1. Build and register required Docker images.
-   Run the following two notebooks to build the custom ECR images:
+   Run the following three notebooks to build the custom ECR images:
+   1. [Set up Docker for SageMaker AI](./prerequisites/enable_docker_on_sagemaker.ipynb)
    1. [Build Custom Clay GPU Image](./prerequisites/clay_gpu_docker_image/build-custom-clay-gpu-image.ipynb)
    2. [Build Custom Geo Processing Image](./prerequisites/geospatial_processing_image/build-custom-geo-image.ipynb)
 
