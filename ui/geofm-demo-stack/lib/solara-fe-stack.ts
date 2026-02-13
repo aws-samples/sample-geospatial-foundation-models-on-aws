@@ -125,7 +125,10 @@ export class SolaraFEStack extends cdk.NestedStack {
     // Add container to task definition
     const container = taskDefinition.addContainer('SolaraContainer', {
       image: ecs.ContainerImage.fromAsset(path.join(__dirname, '../solara-fe'), {
-        platform: cdk.aws_ecr_assets.Platform.LINUX_AMD64
+        platform: cdk.aws_ecr_assets.Platform.LINUX_AMD64,
+        buildArgs: {
+          '--no-cache': ''
+        }
       }),
       logging: ecs.LogDrivers.awsLogs({ streamPrefix: 'SolaraBackend' }),
       environment: {
