@@ -161,7 +161,7 @@ solara-server==1.42.0
 solara-ui==1.42.0
 soupsieve==2.8
 stack-data==0.6.3
-starlette==0.47.3
+starlette==1.0.1
 statsmodels==0.14.5
 tenacity==9.1.2
 terminado==0.18.1
