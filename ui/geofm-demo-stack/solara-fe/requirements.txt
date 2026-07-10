@@ -91,7 +91,7 @@ MarkupSafe==3.0.2
 matplotlib==3.10.6
 matplotlib-inline==0.1.7
 mdurl==0.1.2
-mistune==3.1.4
+mistune==3.3.0
 multidict==6.6.4
 nbclient==0.10.2
 nbconvert==7.16.6
