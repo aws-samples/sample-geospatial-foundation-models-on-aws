@@ -108,7 +108,7 @@ pandocfilters==1.5.1
 parso==0.8.5
 patsy==1.0.1
 pexpect==4.9.0
-pillow==11.3.0
+pillow==12.3.0
 platformdirs==4.4.0
 plotly==5.24.1
 pluggy==1.6.0
